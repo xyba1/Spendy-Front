@@ -1,27 +1,54 @@
-import { useState } from "react" // Hook de estado
-import { Link } from "react-router-dom" // Navegación
+// Importamos useState para manejar los datos del formulario
+import { useState } from "react"
 
+// Importamos Link para navegar entre páginas
+import { Link } from "react-router-dom"
+
+// Importamos la función de registro desde api.js
+import { registerRequest } from "../api/api"
+
+
+// Definimos el componente Register
 export default function Register() {
 
-  // Estado para nombre
+  // Estado para el nombre
   const [name, setName] = useState("")
 
-  // Estado para email
+  // Estado para el email
   const [email, setEmail] = useState("")
 
-  // Estado para contraseña
+  // Estado para la contraseña
   const [password, setPassword] = useState("")
 
-  // Manejo del envío del formulario
-  const handleSubmit = (e) => {
-    e.preventDefault() // Evita recarga
 
-    // Simulación de registro
-    console.log("Nombre:", name)
-    console.log("Email:", email)
-    console.log("Password:", password)
+  // Función al enviar el formulario
+  const handleSubmit = async (e) => {
+
+    // Evita recarga de página
+    e.preventDefault()
+
+    // Creamos objeto con los datos
+    const data = {
+      name,
+      email,
+      password
+    }
+
+    try {
+      // Enviamos datos al backend
+      const response = await registerRequest(data)
+
+      // Mostramos respuesta
+      console.log("Registro:", response)
+
+    } catch (error) {
+      // Manejo de errores
+      console.error("Error en registro:", error)
+    }
   }
 
+
+  // Render del formulario
   return (
     <div>
       <h1>Registro</h1>
@@ -58,12 +85,14 @@ export default function Register() {
 
         <br />
 
+        {/* Botón */}
         <button type="submit">
           Registrarse
         </button>
 
       </form>
 
+      {/* Enlace a login */}
       <p>
         ¿Ya tienes cuenta?
         <Link to="/"> Inicia sesión</Link>
