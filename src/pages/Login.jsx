@@ -1,95 +1,41 @@
-// Importamos useState para manejar el estado de los inputs
-import { useState } from "react"
+import React from 'react'
+import Footer from '../components/Footer'
+import "./Login.css";
 
-// Importamos Link para navegación y useNavigate para redirección automática
-import { Link, useNavigate } from "react-router-dom"
-
-// Importamos la función que hace la petición al backend
-import { loginRequest } from "../api/api"
-
-
-// Definimos el componente Login
-export default function Login() {
-
-  // Estado para guardar el email del usuario
-  const [email, setEmail] = useState("")
-
-  // Estado para guardar la contraseña
-  const [password, setPassword] = useState("")
-
-  // Hook que nos permite redirigir a otra ruta
-  const navigate = useNavigate()
-
-
-  // Función que se ejecuta al enviar el formulario
-  const handleSubmit = async (e) => {
-
-    // Evita que la página se recargue
-    e.preventDefault()
-
-    // Creamos un objeto con los datos del usuario
-    const data = {
-      email,
-      password
-    }
-
-    try {
-      // Llamamos a la función del api.js y enviamos los datos
-      const response = await loginRequest(data)
-
-      // Mostramos la respuesta del servidor en consola
-      console.log("Respuesta backend:", response)
-
-      // Redirigimos al usuario al dashboard
-      navigate("/dashboard")
-
-    } catch (error) {
-      // Si ocurre un error, lo mostramos en consola
-      console.error("Error en login:", error)
-    }
-  }
-
-
-  // Renderizamos el formulario
+const Login = () => {
   return (
-    <div>
-      <h1>Login</h1>
+    <>
+      <div className="contenedor">
 
-      {/* Formulario */}
-      <form onSubmit={handleSubmit}>
+        <div className="formulario">
+          <h2>Registro</h2>
 
-        {/* Input de email */}
-        <input
-          type="email" // Tipo email
-          placeholder="Correo"
-          value={email} // Conectado al estado
-          onChange={(e) => setEmail(e.target.value)} // Actualiza el estado
-        />
+          <form>
+            <div className="input-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Ingresa tu nombre" />
+            </div>
 
-        <br />
+            <div className="input-group">
+              <label>Correo</label>
+              <input type="email" placeholder="Ingresa tu correo" />
+            </div>
 
-        {/* Input de contraseña */}
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+            <div className="input-group">
+              <label>Contraseña</label>
+              <input type="password" placeholder="Ingresa tu contraseña" />
+            </div>
 
-        <br />
+            <button type="submit">Guardar</button>
+          </form>
+        </div>
+        
+           <Footer />
+      </div>
 
-        {/* Botón para enviar */}
-        <button type="submit">
-          Iniciar sesión
-        </button>
-
-      </form>
-
-      {/* Enlace a registro */}
-      <p>
-        ¿No tienes cuenta?
-        <Link to="/register"> Regístrate</Link>
-      </p>
-    </div>
+     
+    </>
   )
 }
+
+export default Login
