@@ -1,22 +1,24 @@
-import { createBrowserRouter } from "react-router-dom" // Función para crear rutas
-
-// Importamos páginas
-import Login from "../pages/Login"
-import Register from "../pages/Register"
-import Dashboard from "../pages/Dashboard"
-
-// Definimos todas las rutas de la app
+import { createBrowserRouter } from 'react-router-dom'
+import Login from '../pages/Login'
+import Register from '../pages/Register'
+import Dashboard from '../pages/Dashboard'
+import App from '../App'
+//Rutas 
 export const router = createBrowserRouter([
   {
-    path: "/", // Ruta inicial
-    element: <Login /> // Vista login
+    path: "/login", 
+    element: <Login /> 
   },
   {
-    path: "/register", // Ruta registro
+    path: "/register", 
     element: <Register />
   },
   {
-    path: "/dashboard", // Ruta dashboard
+    path: "/dashboard",
     element: <Dashboard />
+  },
+  {
+    path:"/",
+    element: <App />
   }
 ])
